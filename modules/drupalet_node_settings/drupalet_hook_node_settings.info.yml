@@ -1,0 +1,7 @@
+type: module
+name : Drupalet  Node Settings
+description : Drupalet Node Settings
+package: drupalet
+version: '10.x'
+core_version_requirement: ^9 || ^10
+project: 'drupalet_hook_node_settings'

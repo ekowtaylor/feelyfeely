@@ -1,0 +1,41 @@
+name: Drupalet Mono
+type: theme
+description: 'A flexible, recolorable theme with many regions and a responsive, mobile-first layout.'
+package: drupaletthemes
+base theme: false
+libraries:
+  - drupalet_mono/global-styling
+  - core/jquery
+
+libraries-override:
+  views_infinite_scroll/views-infinite-scroll: drupalet_mono/views-infinite-scroll
+
+regions:
+  topbar_left: 'Topbar Left'
+  topbar_right: 'Topbar Right'
+  search: 'Search'
+  branding: 'Branding'
+  header_right: 'Header Right'
+  breadcrumbs: 'Breadcrumbs'
+  help: 'Help'
+  main_menu: 'Main menu'
+  menu_toggle: 'Menu Toggle'
+  content_menu_toggle: 'Content Menu Toggle'
+  slideshow_content: 'Slideshow'
+  before_content: 'Before Content'
+  content: 'Main content'
+  content_bottom: 'Content Bottom'
+  sidebar_left: 'Sidebar Left'
+  sidebar_right: 'Sidebar Right'
+  after_content: 'After Content'
+  footer_first: 'Footer Fisrt'
+  footer_second: 'Footer Second'
+  footer_third: 'Footer Third'
+  footer_four: 'Footer Four'
+  social_footer: 'Social Footer'
+  copyright: 'Copyright'
+  other: 'Other'
+
+version: '10.x'
+core_version_requirement: ^9 || ^10
+project: 'drupal'

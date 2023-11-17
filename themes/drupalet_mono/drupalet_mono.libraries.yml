@@ -1,0 +1,43 @@
+global-styling:
+  version: VERSION
+  header: false
+  css:
+    theme:
+      #https://fonts.googleapis.com/css?family=Poppins:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i&display=swap: { type: external }
+      assets/plugins/bootstrap/bootstrap.min.css: {}
+      assets/plugins/owl-carousel/owl.carousel.min.css: {}
+      assets/plugins/owl-carousel/owl.theme.default.min.css: {}
+      assets/plugins/magnific-popup/magnific-popup.min.css: {}
+      assets/plugins/sal/sal.min.css: {}
+      assets/css/theme.min.css: {}
+      assets/plugins/font-awesome/css/all.css: {}
+      assets/plugins/themify/themify-icons.min.css: {}
+      assets/plugins/simple-line-icons/css/simple-line-icons.css: {}
+      assets/css/update.css: {}
+  js:
+    assets/plugins/jquery.min.js: {}
+    #https://maps.googleapis.com/maps/api/js?key=AIzaSyBUma4oJ7_6VbfGNdUYdv6VQ0Ph07Fz0k8: {}
+    #https://polyfill.io/v3/polyfill.min.js?features=IntersectionObserver: {}
+    assets/plugins/plugins.js: {}
+    assets/js/functions.min.js: {}
+    assets/js/update.js: {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupalSettings
+
+
+maintenance_page:
+  version: VERSION
+  css:
+    theme:
+      css/maintenance-page.css: {}
+
+views-infinite-scroll:
+  version: VERSION
+  js:
+    js/override/infinite-scroll.js : {}
+  dependencies:
+    - core/jquery
+    - core/drupal
+    - core/drupal.debounce

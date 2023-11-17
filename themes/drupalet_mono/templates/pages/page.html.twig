@@ -1,0 +1,109 @@
+{% set temp_header_url = '' %}
+{% set temp_header_url_a = '' %}
+
+{% set var_header_menu_style = '' %} {# Check menu style: Default or Menu toggle - get data drpn_breadcrumb #}
+
+{% set sidebar = '' %}
+
+{% if node.drpn_node_layout.0.value is not empty %}
+	{% set sidebar = node.drpn_node_layout.0.value %}
+{% endif %}
+
+
+{% if node.drpn_breadcrumb.0.value == 'enable' %}
+	{% set var_header_menu_style = node.drpn_breadcrumb.0.value %}
+	
+	{# 
+		'enable' = 'Menu Default',
+     	'disable'  = 'Menu Toggle'	
+	 #}
+{% else %}
+	{% set var_header_menu_style = '' %}
+{% endif %}
+
+{% set temp_footer_url = '' %}
+
+<!-- HEADER START --> 
+{% if var_header_menu_style == 'enable' %} {# Default menu #}
+	{% include header_skin %}
+{% else %} {# Toggle menu #}
+	{% include '@drupalet_mono/header_styles/header-menu-toggle.html.twig' %}
+{% endif %}
+
+<!-- HEADER END --> 
+
+
+<!-- CONTENT --> 
+{% if page.slideshow_content %}
+	{{ page.slideshow_content }}
+{% endif %}	
+
+{% if page.help %}
+	<div class="help drp-help-region section">
+		<div class="container">
+			<div class="row">
+				{{ page.help }}
+			</div>
+		</div>
+	</div>
+{% endif %}
+{% if page.before_content %}
+	{{ page.before_content }}
+{% endif %}
+
+{% if sidebar == 'right_sidebar' %}
+		<!-- Blog section  -->
+		<div class="section">
+			<div class="container">
+				<div class="row col-spacing-50">
+					<!-- Blog Posts -->
+					<div class="col-12 col-lg-8">
+						{% include '@drupalet_mono/pages/main.html.twig' %}
+					</div>
+					<!-- end Blog Posts -->
+		
+					<!-- Blog Sidebar -->
+					<div class="col-12 col-lg-4 sidebar-wrapper">
+						{{ page.sidebar_right }}
+					</div>
+					<!-- end Blog Sidebar -->
+				</div><!-- end row -->
+			</div><!-- end container -->
+		</div>
+		<!-- end Blog section -->
+	{% elseif sidebar == 'left_sidebar' %}
+		<!-- Blog section  -->
+		<div class="section">
+			<div class="container">
+				<div class="row col-spacing-50">
+					
+					<!-- Blog Sidebar -->
+					<div class="col-12 col-lg-4 sidebar-wrapper">
+						{{ page.sidebar_left }}
+					</div>
+					<!-- end Blog Sidebar -->
+					
+					<!-- Blog Posts -->
+					<div class="col-12 col-lg-8">
+						{% include '@drupalet_mono/pages/main.html.twig' %}
+					</div>
+					<!-- end Blog Posts -->
+		
+					
+				</div><!-- end row -->
+			</div><!-- end container -->
+		</div>
+		<!-- end Blog section -->
+		
+		
+	{% else %}
+		{% include '@drupalet_mono/pages/main.html.twig' %}
+	{% endif %}
+
+{% if page.content_bottom %}
+	{{ page.content_bottom }}
+{% endif %}
+
+<!-- FOOTER START --> 
+	{% include '@drupalet_mono/footer_styles/footer-classic.html.twig' %}
+<!-- FOOTER END --> 

@@ -1,0 +1,84 @@
+{% set var_header_sticky = '' %}
+{% set var_header_menu_align = '' %}
+{% set var_default_header_dark_black = '' %}
+{% set var_default_header_absolute = '' %}
+
+{% set var_header_sticky = ' ' ~ header_sticky %}
+{% set var_header_menu_align = ' ' ~ header_menu_align %}
+{% set var_default_header_dark_black = ' ' ~ default_header_dark_black %}
+{% set var_default_header_absolute = ' ' ~ default_header_absolute %}
+
+
+{% if node.drpn_header_sticky.0.value is not empty %}
+	{% set var_header_sticky = ' ' ~ node.drpn_header_sticky.0.value %}
+{% else %}
+	{% set var_header_sticky = '' %}
+{% endif %}
+
+{% if node.drpn_header_menu_align.0.value is not empty %}
+	{% set var_header_menu_align = ' ' ~ node.drpn_header_menu_align.0.value %}
+{% else %}
+	{% set var_header_menu_align = '' %}
+{% endif %}
+
+{% if node.drpn_default_header_dark_black.0.value is not empty %}
+	{% set var_default_header_dark_black = ' ' ~ node.drpn_default_header_dark_black.0.value %}
+{% else %}
+	{% set var_default_header_dark_black = '' %}
+{% endif %}
+
+{% if node.drpn_default_header_absolute.0.value is not empty %}
+	{% set var_default_header_absolute = ' ' ~ node.drpn_default_header_absolute.0.value %}
+{% else %}
+	{% set var_default_header_absolute = '' %}
+{% endif %}
+
+
+{% if node.field_background_header_de.entity.uri.value is not empty %}
+	{% set img_uri = node.field_background_header_de.entity.uri.value %}
+{% else %}
+	{% set img_uri = node.field_background_header_default_.entity.uri.value %}
+{% endif %}
+
+
+
+
+<div class="header {{  var_header_sticky  ~ var_header_menu_align ~ var_default_header_dark_black ~ var_default_header_absolute}}">
+	<div class="container"> 
+		<!-- Logo -->
+		<div class="header-logo">
+			{% if page.branding %}
+				{{ page.branding }}
+			  {% endif %}
+			
+		</div>
+		<!-- Menu -->
+		<div class="header-menu">
+			{% if page.main_menu %}
+			  {{ page.main_menu }}
+			{% endif %}
+			
+			
+		</div>
+		<!-- Menu Toggle -->
+		<button class="header-toggle"> <span></span> </button>
+	</div>
+	<!-- end container --> 
+</div>
+
+{% if header_image_article is not empty %}
+	{% set img_uri = header_image_article %}
+{% endif %}
+
+{% if img_uri is not empty %}
+	<div class="section-xl bg-image parallax" data-bg-src="{{ file_url(img_uri) }}">
+		<div class="bg-black-06">
+			<div class="container text-center">
+				<h1 class="font-weight-normal margin-0">{{ node.title.value }}</h1>
+				{% if node.field_description_header.value is not empty %}
+					<p>{{ node.field_description_header.value }}</p>
+				{% endif %}
+			</div><!-- end container -->
+		</div>
+	</div>
+{% endif %}

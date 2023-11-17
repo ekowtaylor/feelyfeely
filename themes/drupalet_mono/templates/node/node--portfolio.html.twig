@@ -1,0 +1,100 @@
+{# set imageoneURL = file_url(node.field_image.entity.uri.value) #}
+{% set imguri = node.field_image.entity.uri.value %}
+{% set img_url = file_url(imguri) %}
+
+{% set img_arr = node.field_gallery %}
+{% set length_image = node.field_gallery|length %}
+{% set img_alt = node.field_image.alt %}
+
+{# set detail = node.field_details.value #}
+{# set website = node.field_website.value #}
+{% set body = node.body.value %}
+
+{% set style = node.field_portfolio_style.value %}
+
+
+
+
+		<div class="row col-spacing-40">
+			<div class="col-12 col-lg-3">
+				<div class="margin-bottom-20">
+					<h6 class="font-family-tertiary font-small font-weight-normal uppercase margin-0">{{ 'Category'|t }}</h6>
+					<span>{{ content.field_portfolio_categories }}</span> </div>
+				<div class="margin-bottom-20">
+					<h6 class="font-family-tertiary font-small font-weight-normal uppercase margin-0">{{ 'Date'|t }}</h6>
+					<span>{{ node.field_date.value }}</span> </div>
+				<div>
+					<h6 class="font-family-tertiary font-small font-weight-normal uppercase margin-0">{{ 'Industry'|t }}</h6>
+					<span>{{ node.field_industry.value }}</span> </div>
+			</div>
+			<div class="col-12 col-lg-6">
+				{{ body|raw }}
+			</div>
+			<div class="col-12 col-lg-3">
+				<div class="margin-bottom-20">
+					<h6 class="font-family-tertiary font-small font-weight-normal uppercase margin-0">{{ 'Client'|t }}</h6>
+					<span>{{ node.field_client.value }}</span> </div>
+				<div class="margin-bottom-20">
+					<h6 class="font-family-tertiary font-small font-weight-normal uppercase margin-0">{{ 'Service'|t }}</h6>
+					<span>{{ node.field_services.value }}</span> </div>
+				<div>
+					<h6 class="font-family-tertiary font-small font-weight-normal uppercase margin-0">{{ 'Project Link'|t }}</h6>
+					<a class="text-link-5" href="{{ node.field_portfolio_link.value }}">{{ node.field_portfolio_link.value }}</a> </div>
+			</div>
+		</div>
+	
+<!-- Portfolio Media -->
+{% if style == 'carousel' %}
+<div class="section padding-top-50 text-center">
+	<div class="container">
+		<div class="owl-carousel owl-dots-overlay" data-owl-items="1" data-owl-nav="true" data-owl-autoplay="true">
+			{% if length_image > 1 %}
+			
+				{% for img_item in img_arr %}
+					{% set img_uri = img_item.entity.uri.value %}
+					{% set img_url = file_url(img_uri) %}
+					{# set images_gallery_project = getUrlByImageStyle(imguri, 'image_') #}
+					<div>
+						<img src="{{ img_url }}" alt="" style="width:100%">
+					</div>
+					
+				{% endfor %}
+				
+			{% endif %}
+		</div>
+	</div>
+</div>
+
+{% else %}
+
+<div class="padding-top-50">
+	<div class="container">
+		<div class="row">
+			<div class="col-12 text-center"> 
+				{% if style == 'video' %}
+					<a class="lightbox-media-box" href="{{ node.field_youtube_url.value }}">
+						<img src="{{ img_url }}" alt="" style="width:100%"> 
+						<i class="fas fa-play"></i>
+					</a>
+				{% elseif style == 'image' %}
+					<img src="{{ img_url }}" alt="" style="width:100%"> 
+				{% endif %}
+				
+			</div>
+			{% if length_image > 1 %}
+			
+				{% for img_item in img_arr %}
+					{% set img_uri = img_item.entity.uri.value %}
+					{% set img_url = file_url(img_uri) %}
+					{# set images_gallery_project = getUrlByImageStyle(imguri, 'image_') #}
+					<div class="col-12 col-md-6"> <img src="{{ img_url }}" alt=""> </div>
+				{% endfor %}
+				
+			{% endif %}
+		
+		</div>
+		<!-- end row --> 
+	</div>
+	<!-- end container --> 
+</div>
+{% endif %}

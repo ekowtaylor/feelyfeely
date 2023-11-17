@@ -1,0 +1,124 @@
+{% if node.getRevisionAuthor().field_full_name.value %}
+    {% set full_name = node.getRevisionAuthor().field_full_name.value %}
+{% endif %}
+{% if full_name is null %}
+  {% set full_name =  author_name %}
+{% endif %}
+
+{% set img_uri = node.field_image.entity.uri.value %}
+{% set img_url = file_url(img_uri) %}
+{% set img_alt = node.field_image.alt %}
+{% set length_image = node.field_image|length  %}
+{% set img_arr = node.field_image %}
+{% set comment_count =  content.comment['#items'].comment_count %}
+{% set youtube_url = node.field_youtube_url.value %}
+{% set vimeo_url = node.field_vimeo_url.value %}
+
+  
+{# set image640x510 = getUrlByImageStyle(img_uri, 'image640x510')  #}
+{# set image1200x550 = getUrlByImageStyle(img_uri, 'image1200x550')  #}
+
+{# set display_video_type = node.field_display_video_type.value #}
+{% if not page %}
+
+<div class="margin-bottom-50">
+	<div class="hoverbox-8" style="width:100%"> <a href="{{ path('entity.node.canonical', {'node': node.id}) }}"> <img style="width:100%" src="{{ img_url }}" alt="{{ img_alt }}"> </a> </div>
+	<div class="margin-top-30">
+		<div class="d-flex justify-content-between margin-bottom-10">
+			<div class="d-inline-flex"> <a class="font-family-tertiary font-small font-weight-normal uppercase" >{{ full_name }}</a> </div>
+			<div class="d-inline-flex"> <span class="font-small">{{ node.getCreatedTime|date('M d, Y') }}</span> </div>
+		</div>
+		<h5><a href="{{ path('entity.node.canonical', {'node': node.id}) }}">{{ node.title.value }}</a></h5>
+		<p>{{ node.body.summary }}</p>
+		<div class="margin-top-20"> <a class="button-text-1" href="{{ path('entity.node.canonical', {'node': node.id}) }}">Read More</a> </div>
+	</div>
+</div>
+
+
+
+{% else %}
+
+{# 
+{% if node.drpn_node_layout.0.value == 'left_sidebar' or node.drpn_node_layout.0.value == 'right_sidebar' %}
+	{% set class_s = ' margin-top--100 ' %}
+{% else %}
+	{% set class_s = '' %}
+{% endif %}
+
+#}
+<div class="row">
+	
+	
+	<div class="col-12 col-lg-12 {{ class_s }}">
+	{% if node.field_soundcloud_url.value is not empty %}
+		<div class="margin-bottom-30">
+			<iframe scrolling="no" allow="autoplay" src="https://w.soundcloud.com/player/?url={{ node.field_soundcloud_url.value }}&amp;color=%23ff5500&amp;visual=true"></iframe>
+		</div>
+	{% endif %}	
+	
+		
+		{% if length_image > 1 %}
+		<div class="owl-carousel owl-nav-overlay owl-dots-overlay margin-bottom-30" data-owl-items="1" data-owl-nav="true" data-owl-autoplay="true">
+			
+			 {% for image in img_arr %}
+				{% set imageURL = file_url(image.entity.uri.value) %}
+				{% set imagealt = file_url(image.entity.alt) %}
+					<div>
+						<img class="img-responsive" src="{{ imageURL }}" alt="{{ imagealt }}"> 
+					</div>
+			{% endfor %} 
+			
+		</div>
+	{% else %}
+		
+		<div class="margin-bottom-30">
+			{% if node.field_youtube_url.value is not empty %}
+				<a class="lightbox-media-box margin-bottom-30" href="{{ node.field_youtube_url.value }}">
+					<img class="img-responsive" src="{{ img_url }}" alt="{{ img_alt }}" style="width:100%"> 
+					<i class="fas fa-play"></i>
+				</a>
+			{% else %}
+				<img class="img-responsive" src="{{ img_url }}" alt="{{ img_alt }}" style="width:100%"> 
+			{% endif %}	
+		</div>
+		
+	{% endif %} 
+	
+	
+	{{ content.body }}
+		
+		<!-- Post Tags / Share -->
+		<div class="row margin-top-50">
+			<div class="col-6 list-tags-node underline">
+				<h6 class="font-family-tertiary font-small font-weight-normal uppercase">Tags</h6>
+				{{ content.field_tags|render }}
+				
+			</div>
+			<div class="col-6 text-right">
+				<h6 class="font-family-tertiary font-small font-weight-normal uppercase">Share On</h6>
+				<ul class="list-inline">
+					<li><a href="#"><i class="fab fa-facebook-f"></i></a></li>
+					<li><a href="#"><i class="fab fa-twitter"></i></a></li>
+					<li><a href="#"><i class="fab fa-google-plus-g"></i></a></li>
+				</ul>
+			</div>
+		</div>
+		<!-- end Post Tags / Share -->
+	</div>
+	<div class="clear col-12 col-lg-12" id="comment-list">
+		<div class="comments-area" id="comments">
+			<h2 class="comments-title">Comments</h2>
+			<div class="comments-outer p-b30"> 
+				
+				<!-- LEAVE A REPLY START -->
+				<div class="comment-respond m-t30" id="respond"> {{ content.comment }} </div>
+				<!-- LEAVE A REPLY END --> 
+			</div>
+		</div>
+	</div>
+	
+	
+</div><!-- end row -->
+	
+	
+{% endif %}
